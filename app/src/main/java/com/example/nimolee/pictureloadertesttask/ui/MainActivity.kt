@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.nimolee.pictureloadertesttask.R
+import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.PictureListFragment
+import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentLocation, PictureListFragment.newInstance(1)).commitNow()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,5 +38,9 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
