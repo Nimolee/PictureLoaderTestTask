@@ -1,3 +1,4 @@
+/*
 package com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list
 
 import android.support.v7.widget.RecyclerView
@@ -13,13 +14,16 @@ import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.dummy.
 
 import kotlinx.android.synthetic.main.fragment_picture.view.*
 
+*/
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
- */
+ *//*
+
 class MyPictureRecyclerViewAdapter(
-        private val mValues: List<DummyItem>,
+        //TODO: rewrite to entity
+        // private val mValues: List<DummyItem>,
         private val mListener: OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder>() {
 
@@ -27,10 +31,8 @@ class MyPictureRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+            //TODO: rewrite callback
+            //mListener?.openPicture(item)
         }
     }
 
@@ -51,7 +53,7 @@ class MyPictureRecyclerViewAdapter(
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int = 0 // mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.item_number
@@ -62,3 +64,4 @@ class MyPictureRecyclerViewAdapter(
         }
     }
 }
+*/

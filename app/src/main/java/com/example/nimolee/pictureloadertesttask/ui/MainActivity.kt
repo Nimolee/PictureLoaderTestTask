@@ -5,12 +5,9 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.example.nimolee.pictureloadertesttask.R
 import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.PictureListFragment
-import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInteractionListener {
 
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInte
         }
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
-         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun openPicture(itemId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -11,17 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.nimolee.pictureloadertesttask.R
 
-import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.dummy.DummyContent
-import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.dummy.DummyContent.DummyItem
-
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [PictureListFragment.OnListFragmentInteractionListener] interface.
- */
 class PictureListFragment : Fragment() {
-
-    // TODO: Customize parameters
     private var columnCount = 1
 
     private var listener: OnListFragmentInteractionListener? = null
@@ -37,15 +27,13 @@ class PictureListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_picture_list, container, false)
-
-        // Set the adapter
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyPictureRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                //TODO: rewrite adapter //adapter = MyPictureRecyclerViewAdapter(DummyContent.ITEMS, listener)
             }
         }
         return view
@@ -65,28 +53,13 @@ class PictureListFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun openPicture(itemId: Int)
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
                 PictureListFragment().apply {
