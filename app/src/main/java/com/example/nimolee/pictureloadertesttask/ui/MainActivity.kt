@@ -43,4 +43,6 @@ class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInte
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+
 }
