@@ -13,7 +13,19 @@ class Repository(context: Context) {
         workerThread.start()
     }
 
-    fun getAllPictures():MutableLiveData<Array<PictureObject>>{
-
+    fun getAllPictures(): MutableLiveData<ArrayList<PictureObject>> {
+        val result = MutableLiveData<ArrayList<PictureObject>>()
+        val task = Runnable {
+            val pictures = dataBase?.pictureDao()?.getAllPictures()
+            if (pictures != null) {
+                val decPictures = ArrayList<PictureObject>()
+                for (i in pictures) {
+                    decPictures.add(PictureObject(i.id, i.url, i.picture))
+                }
+                result.postValue(decPictures)
+            }
+        }
+        workerThread.postTask(task)
+        return result
     }
 }
