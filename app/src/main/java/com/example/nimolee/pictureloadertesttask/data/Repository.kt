@@ -3,6 +3,7 @@ package com.example.nimolee.pictureloadertesttask.data
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
+import com.example.nimolee.pictureloadertesttask.data.entity.PictureEntity
 import com.example.nimolee.pictureloadertesttask.tools.DbWorkerThread
 
 class Repository(context: Context) {
@@ -27,5 +28,13 @@ class Repository(context: Context) {
         }
         workerThread.postTask(task)
         return result
+    }
+
+    fun insert(url: String) {
+        workerThread.postTask(Runnable { dataBase?.pictureDao()?.insertPicture(PictureEntity(0, url, null)) })
+    }
+
+    fun remove(id: Int) {
+        workerThread.postTask(Runnable { dataBase?.pictureDao()?.removePicture(id) })
     }
 }

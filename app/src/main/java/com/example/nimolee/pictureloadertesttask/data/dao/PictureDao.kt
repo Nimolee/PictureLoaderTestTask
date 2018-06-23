@@ -14,6 +14,6 @@ interface PictureDao {
     @Insert
     fun insertPicture(pictureEntity: PictureEntity)
 
-    @Delete
-    fun removepicture(pictureEntity: PictureEntity)
+    @Query("delete from Pictures where id = :id")
+    fun removePicture(id: Int)
 }
