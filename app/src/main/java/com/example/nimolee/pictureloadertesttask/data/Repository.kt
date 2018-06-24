@@ -21,7 +21,7 @@ class Repository(context: Context) {
             if (pictures != null) {
                 val decPictures = ArrayList<PictureObject>()
                 for (i in pictures) {
-                    decPictures.add(PictureObject(i.id, i.url, i.picture))
+                    decPictures.add(PictureObject(i.id, i.url, i.status, i.picture))
                 }
                 result.postValue(decPictures)
             }
@@ -31,7 +31,7 @@ class Repository(context: Context) {
     }
 
     fun insert(url: String) {
-        workerThread.postTask(Runnable { dataBase?.pictureDao()?.insertPicture(PictureEntity(0, url, null)) })
+        workerThread.postTask(Runnable { dataBase?.pictureDao()?.insertPicture(PictureEntity(0, url, 0, null)) })
     }
 
     fun remove(id: Int) {

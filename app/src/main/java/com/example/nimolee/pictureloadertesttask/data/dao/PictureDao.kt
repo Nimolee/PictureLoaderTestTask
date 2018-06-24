@@ -16,4 +16,7 @@ interface PictureDao {
 
     @Query("delete from Pictures where id = :id")
     fun removePicture(id: Int)
+
+    @Query("update Pictures set status = :newStatus where id = :id")
+    fun changeStatus(id: Int, newStatus: Int)
 }
