@@ -1,10 +1,12 @@
 package com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import com.example.nimolee.pictureloadertesttask.data.Repository
+import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
@@ -38,5 +40,9 @@ class PictureListViewModel : ViewModel() {
             }
         }
         Picasso.get().load(url).into(target)
+    }
+
+    fun getAllImage(): MutableLiveData<ArrayList<PictureObject>> {
+        return repository.getAllPictures()
     }
 }

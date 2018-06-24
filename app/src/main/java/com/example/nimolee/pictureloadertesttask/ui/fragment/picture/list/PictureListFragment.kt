@@ -1,5 +1,6 @@
 package com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,12 +14,14 @@ import com.example.nimolee.pictureloadertesttask.R
 
 class PictureListFragment : Fragment() {
     private var columnCount = 1
+    private var viewModel: PictureListViewModel? = null
 
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel = ViewModelProviders.of(this)[PictureListViewModel::class.java]
+        viewModel?.init(context!!)
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -33,7 +36,7 @@ class PictureListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                //TODO: rewrite adapter //adapter = MyPictureRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                adapter = MyPictureRecyclerViewAdapter(listener, viewModel)
             }
         }
         return view

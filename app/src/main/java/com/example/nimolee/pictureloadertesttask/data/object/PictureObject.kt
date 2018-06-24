@@ -7,6 +7,8 @@ class PictureObject(val id: Int, val url: String, val status: Int, blob: ByteArr
     var picture: Bitmap? = null
 
     init {
-        picture = BitmapFactory.decodeByteArray(blob, 0, blob?.size!!)
+        if(blob!=null) {
+            picture = BitmapFactory.decodeByteArray(blob, 0, blob?.size!!)
+        }
     }
 }
