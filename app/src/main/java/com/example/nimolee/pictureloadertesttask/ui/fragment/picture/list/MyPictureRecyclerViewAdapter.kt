@@ -9,20 +9,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.nimolee.pictureloadertesttask.R
 import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
-import com.example.nimolee.pictureloadertesttask.tools.Constant.Companion.allImages
 import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.PictureListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_picture.view.*
 
 class MyPictureRecyclerViewAdapter(
         private val mListener: OnListFragmentInteractionListener?,
-        private val viewModel: PictureListViewModel?)
+        private val viewModel: PictureListViewModel?,
+        private val mValues: ArrayList<PictureObject>?)
     : RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder>() {
-    private var mValues: ArrayList<PictureObject>? = ArrayList()
+    // private var mValues: ArrayList<PictureObject>? = ArrayList()
 
     init {
-        allImages.observeForever {
-            mValues = it
-        }
         viewModel?.getAllImage()
 
     }
@@ -43,12 +40,18 @@ class MyPictureRecyclerViewAdapter(
                 1 -> "In progress"
                 2 -> "Downloaded"
                 3 -> "Error"
+                4 -> "Internet error"
                 else -> {
                     "Something wrong"
                 }
             }
-            if (item.picture != null) {
-                holder.mImageView.setImageBitmap(item.picture)
+            when (item.status) {
+                0 -> viewModel?.saveImageToDatabase(item.id, item.url)
+                1 -> viewModel?.saveImageToDatabase(item.id, item.url)
+                2 -> holder.mImageView.setImageBitmap(item.picture)
+                4 -> viewModel?.saveImageToDatabase(item.id, item.url)
+                else -> {
+                }
             }
             holder.mURLView.text = item.url
             with(holder.mView) {

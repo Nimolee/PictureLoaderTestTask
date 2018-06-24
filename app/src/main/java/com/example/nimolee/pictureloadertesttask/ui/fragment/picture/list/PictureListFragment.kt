@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.nimolee.pictureloadertesttask.R
+import com.example.nimolee.pictureloadertesttask.tools.Constant
 
 class PictureListFragment : Fragment() {
     private var columnCount = 1
@@ -36,7 +37,10 @@ class PictureListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyPictureRecyclerViewAdapter(listener, viewModel)
+                Constant.allImages.observeForever {
+                    adapter = MyPictureRecyclerViewAdapter(listener, viewModel,it)
+                }
+                viewModel?.getAllImage()
             }
         }
         return view

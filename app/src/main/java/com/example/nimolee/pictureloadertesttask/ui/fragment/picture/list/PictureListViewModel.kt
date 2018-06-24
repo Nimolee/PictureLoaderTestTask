@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.example.nimolee.pictureloadertesttask.data.Repository
 import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
 import com.squareup.picasso.Picasso
@@ -20,7 +21,12 @@ class PictureListViewModel : ViewModel() {
     fun saveImageToDatabase(id: Int, url: String) {
         val target = object : com.squareup.picasso.Target {
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                repository.changeStatus(id, 3)
+                Log.e("aaaa", e?.message)
+                if (e?.message?.contains("Unrecognized")!!) {
+                    repository.changeStatus(id, 3)
+                } else {
+                    repository.changeStatus(id, 4)
+                }
             }
 
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
