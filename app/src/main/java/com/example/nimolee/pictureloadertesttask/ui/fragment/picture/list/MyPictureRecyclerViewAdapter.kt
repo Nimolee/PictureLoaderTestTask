@@ -38,10 +38,10 @@ class MyPictureRecyclerViewAdapter(
                 "Something wrong"
             }
         }
-        if(item.picture!=null){
-
-        }else{
-
+        if (item.picture != null) {
+            holder.mImageView.setImageBitmap(item.picture)
+        } else {
+            //TODO:Write save to database
         }
         holder.mURLView.text = item.url
         with(holder.mView) {
@@ -62,4 +62,6 @@ class MyPictureRecyclerViewAdapter(
             return super.toString() + " '" + mURLView.text + "'"
         }
     }
+
+
 }

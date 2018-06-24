@@ -19,4 +19,9 @@ interface PictureDao {
 
     @Query("update Pictures set status = :newStatus where id = :id")
     fun changeStatus(id: Int, newStatus: Int)
+
+    @Query("update Pictures set picture = :picture where id = :id")
+    fun savePicture(id: Int,picture:ByteArray)
+
+
 }

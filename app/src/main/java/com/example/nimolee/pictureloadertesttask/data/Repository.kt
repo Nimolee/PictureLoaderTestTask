@@ -37,4 +37,15 @@ class Repository(context: Context) {
     fun remove(id: Int) {
         workerThread.postTask(Runnable { dataBase?.pictureDao()?.removePicture(id) })
     }
+
+    fun changeStatus(id: Int, newStatus: Int) {
+        workerThread.postTask(Runnable { dataBase?.pictureDao()?.changeStatus(id, newStatus) })
+    }
+
+    fun savePicture(id: Int, picture: ByteArray) {
+        workerThread.postTask(Runnable {
+            dataBase?.pictureDao()?.savePicture(id, picture)
+            dataBase?.pictureDao()?.changeStatus(id, 2)
+        })
+    }
 }
