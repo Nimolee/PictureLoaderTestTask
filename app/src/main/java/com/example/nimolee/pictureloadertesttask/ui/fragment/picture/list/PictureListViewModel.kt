@@ -19,7 +19,7 @@ class PictureListViewModel : ViewModel() {
     }
 
     fun changeSilenseStatus(id: Int, newStatus: Int) {
-        repository.changeStatusSilense(id, newStatus)
+        repository.changeStatusSilence(id, newStatus)
     }
 
     fun saveImageToDatabase(id: Int, url: String) {
@@ -49,10 +49,14 @@ class PictureListViewModel : ViewModel() {
                 }
             }
         }
-        Picasso.get().load(url).into(target)
+        Picasso.get().load(url).resize(768,0).into(target)
     }
 
     fun getAllImage(): MutableLiveData<ArrayList<PictureObject>> {
         return repository.getAllPictures()
+    }
+
+    fun refresh() {
+        repository.refreshAll()
     }
 }

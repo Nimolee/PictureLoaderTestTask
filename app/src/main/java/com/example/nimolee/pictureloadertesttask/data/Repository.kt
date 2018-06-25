@@ -56,7 +56,7 @@ class Repository(context: Context) {
         })
     }
 
-    fun changeStatusSilense(id: Int, newStatus: Int) {
+    fun changeStatusSilence(id: Int, newStatus: Int) {
         workerThread.postTask(Runnable {
             dataBase?.pictureDao()?.changeStatus(id, newStatus)
         })
@@ -66,6 +66,13 @@ class Repository(context: Context) {
         workerThread.postTask(Runnable {
             dataBase?.pictureDao()?.savePicture(id, picture)
             dataBase?.pictureDao()?.changeStatus(id, 2)
+            getPicturesConverted()
+        })
+    }
+
+    fun refreshAll() {
+        workerThread.postTask(Runnable {
+            dataBase?.pictureDao()?.refreshAll()
             getPicturesConverted()
         })
     }

@@ -19,8 +19,23 @@ class MyPictureRecyclerViewAdapter(
         private val viewModel: PictureListViewModel?,
         private val mValues: ArrayList<PictureObject>?)
     : RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder>() {
+    var currLoaded = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        loading = false
+        loop@ for (i in mValues?.reversed()!!) {
+            when (i.status) {
+                0, 1 -> {
+                    if (!loading) {
+                        loading = true
+                        viewModel?.saveImageToDatabase(i.id, i.url)
+                        viewModel?.changeSilenseStatus(i.id, 1)
+                        currLoaded = i.id
+                        break@loop
+                    }
+                }
+            }
+        }
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.fragment_picture, parent, false)
         return ViewHolder(view)
@@ -43,22 +58,23 @@ class MyPictureRecyclerViewAdapter(
             }
             holder.mImageView.setImageBitmap(null)
             when (item.status) {
-                0 -> {
+                0, 1 -> {
                     if (!loading) {
+                        loading = true
                         viewModel?.saveImageToDatabase(item.id, item.url)
                         holder.mStatusView.text = "In progress"
-                        viewModel?.changeSilenseStatus(item.id, 1)
                     } else {
-                        holder.mStatusView.text = "In queue"
-                        viewModel?.changeSilenseStatus(item.id, 0)
+                        if (currLoaded != item.id) {
+                            holder.mStatusView.text = "In queue"
+                        } else {
+                            holder.mStatusView.text = "In progress"
+                        }
                     }
                 }
                 2 -> {
                     val newWidth = 768
                     val newHeight = item.picture?.height!! * newWidth / item.picture?.width!!
                     holder.mImageView.setImageBitmap(Bitmap.createScaledBitmap(item.picture, newWidth, newHeight, false))
-                }
-                3 -> {
                 }
                 else -> {
                 }

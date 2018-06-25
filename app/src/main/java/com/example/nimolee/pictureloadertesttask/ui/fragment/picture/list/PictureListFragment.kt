@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.nimolee.pictureloadertesttask.R
 import com.example.nimolee.pictureloadertesttask.tools.Constant
+import kotlinx.android.synthetic.main.fragment_picture_list.view.*
 
 class PictureListFragment : Fragment() {
     private var columnCount = 1
@@ -31,17 +32,21 @@ class PictureListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_picture_list, container, false)
-        if (view is RecyclerView) {
-            with(view) {
+        if (view.list is RecyclerView) {
+            with(view.list) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
                 Constant.allImages.observeForever {
-                    adapter = MyPictureRecyclerViewAdapter(listener, viewModel,it)
+                    adapter = MyPictureRecyclerViewAdapter(listener, viewModel, it)
                 }
 
             }
+        }
+        view.swipeToRefresh.setOnRefreshListener {
+            viewModel?.refresh()
+            view.swipeToRefresh.isRefreshing = false
         }
         viewModel?.getAllImage()
         return view
