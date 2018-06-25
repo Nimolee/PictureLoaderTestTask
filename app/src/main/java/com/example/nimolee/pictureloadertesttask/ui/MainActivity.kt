@@ -40,6 +40,6 @@ class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInte
     }
 
     override fun openPicture(itemId: Int) {
-    //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //    Later
     }
 }
