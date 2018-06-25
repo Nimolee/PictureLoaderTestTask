@@ -40,9 +40,10 @@ class PictureListFragment : Fragment() {
                 Constant.allImages.observeForever {
                     adapter = MyPictureRecyclerViewAdapter(listener, viewModel,it)
                 }
-                viewModel?.getAllImage()
+
             }
         }
+        viewModel?.getAllImage()
         return view
     }
 

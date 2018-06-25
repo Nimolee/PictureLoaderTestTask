@@ -1,6 +1,7 @@
 package com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list
 
 
+import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.nimolee.pictureloadertesttask.R
 import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
+import com.example.nimolee.pictureloadertesttask.tools.Constant.Companion.loading
 import com.example.nimolee.pictureloadertesttask.ui.fragment.picture.list.PictureListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_picture.view.*
 
@@ -17,12 +19,6 @@ class MyPictureRecyclerViewAdapter(
         private val viewModel: PictureListViewModel?,
         private val mValues: ArrayList<PictureObject>?)
     : RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder>() {
-    // private var mValues: ArrayList<PictureObject>? = ArrayList()
-
-    init {
-        viewModel?.getAllImage()
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -33,7 +29,7 @@ class MyPictureRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (mValues != null) {
-            val item = mValues!![position]
+            val item = mValues[position]
             holder.mURLView.text = item.url
             holder.mStatusView.text = when (item.status) {
                 0 -> "In queue"
@@ -45,11 +41,25 @@ class MyPictureRecyclerViewAdapter(
                     "Something wrong"
                 }
             }
+            holder.mImageView.setImageBitmap(null)
             when (item.status) {
-                0 -> viewModel?.saveImageToDatabase(item.id, item.url)
-                1 -> viewModel?.saveImageToDatabase(item.id, item.url)
-                2 -> holder.mImageView.setImageBitmap(item.picture)
-                4 -> viewModel?.saveImageToDatabase(item.id, item.url)
+                0 -> {
+                    if (!loading) {
+                        viewModel?.saveImageToDatabase(item.id, item.url)
+                        holder.mStatusView.text = "In progress"
+                        viewModel?.changeSilenseStatus(item.id, 1)
+                    } else {
+                        holder.mStatusView.text = "In queue"
+                        viewModel?.changeSilenseStatus(item.id, 0)
+                    }
+                }
+                2 -> {
+                    val newWidth = 768
+                    val newHeight = item.picture?.height!! * newWidth / item.picture?.width!!
+                    holder.mImageView.setImageBitmap(Bitmap.createScaledBitmap(item.picture, newWidth, newHeight, false))
+                }
+                3 -> {
+                }
                 else -> {
                 }
             }

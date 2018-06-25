@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.util.Log
 import com.example.nimolee.pictureloadertesttask.data.Repository
 import com.example.nimolee.pictureloadertesttask.data.`object`.PictureObject
+import com.example.nimolee.pictureloadertesttask.tools.Constant.Companion.loading
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
@@ -18,10 +18,14 @@ class PictureListViewModel : ViewModel() {
         repository = Repository(context)
     }
 
+    fun changeSilenseStatus(id: Int, newStatus: Int) {
+        repository.changeStatusSilense(id, newStatus)
+    }
+
     fun saveImageToDatabase(id: Int, url: String) {
         val target = object : com.squareup.picasso.Target {
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                Log.e("aaaa", e?.message)
+                loading = false
                 if (e?.message?.contains("Unrecognized")!!) {
                     repository.changeStatus(id, 3)
                 } else {
@@ -30,7 +34,6 @@ class PictureListViewModel : ViewModel() {
             }
 
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                repository.changeStatus(id, 1)
             }
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
@@ -39,6 +42,7 @@ class PictureListViewModel : ViewModel() {
                     val stream = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                     image = stream.toByteArray()
+                    loading = false
                     if (image != null) {
                         repository.savePicture(id, image)
                     }

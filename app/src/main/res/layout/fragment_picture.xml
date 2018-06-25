@@ -44,6 +44,7 @@
             android:id="@+id/cardImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardURL" />
+            app:layout_constraintTop_toBottomOf="@id/cardURL"
+            android:contentDescription="@string/image" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
