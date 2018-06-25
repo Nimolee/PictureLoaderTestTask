@@ -76,4 +76,11 @@ class Repository(context: Context) {
             getPicturesConverted()
         })
     }
+
+    fun clearDatabase(){
+        workerThread.postTask(Runnable {
+            dataBase?.pictureDao()?.clearData()
+            getPicturesConverted()
+        })
+    }
 }

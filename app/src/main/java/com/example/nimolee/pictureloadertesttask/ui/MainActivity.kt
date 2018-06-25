@@ -31,12 +31,15 @@ class MainActivity : AppCompatActivity(), PictureListFragment.OnListFragmentInte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_clear_database -> {
+                viewModel?.clearDatabase()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun openPicture(itemId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

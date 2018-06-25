@@ -14,4 +14,8 @@ class MainViewModel : ViewModel() {
     fun openUrl(url: String) {
         repository.insert(url)
     }
+
+    fun clearDatabase(){
+        repository.clearDatabase()
+    }
 }

@@ -18,10 +18,6 @@ class PictureListViewModel : ViewModel() {
         repository = Repository(context)
     }
 
-    fun changeSilenseStatus(id: Int, newStatus: Int) {
-        repository.changeStatusSilence(id, newStatus)
-    }
-
     fun saveImageToDatabase(id: Int, url: String) {
         val target = object : com.squareup.picasso.Target {
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {

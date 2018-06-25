@@ -29,7 +29,6 @@ class MyPictureRecyclerViewAdapter(
                     if (!loading) {
                         loading = true
                         viewModel?.saveImageToDatabase(i.id, i.url)
-                        viewModel?.changeSilenseStatus(i.id, 1)
                         currLoaded = i.id
                         break@loop
                     }

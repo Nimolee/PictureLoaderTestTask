@@ -20,9 +20,11 @@ interface PictureDao {
     fun changeStatus(id: Int, newStatus: Int)
 
     @Query("update Pictures set picture_compressed = :picture where id = :id")
-    fun savePicture(id: Int,picture:ByteArray)
+    fun savePicture(id: Int, picture: ByteArray)
 
     @Query("update Pictures set status = 0 where status = 1 or status == 4")
     fun refreshAll()
 
+    @Query("delete from Pictures")
+    fun clearData()
 }
